@@ -1,0 +1,41 @@
+#!/bin/bash
+
+start_sshd() {
+    echo "Starting SSH server by gr33pp..."
+    sshd
+    sleep 1.5
+    user=$(whoami)
+    echo "SSH server started!"
+    echo "Connect to SSH via $user@your_ip_address or user@your_ip_address and port 8022 (default)"
+}
+stop_sshd() {
+    echo "Stopping SSH server by gr33pp..."
+    killall sshd
+    sleep 1.5
+    echo "SSH server Stop!"  
+}
+
+install_sshserver() {
+    echo "Installing Neccessary Components..."
+    cd 
+    pkg install openssh
+    clear
+    passwd
+    echo "Installed :)"
+}
+
+case "$1" in
+    start)
+        start_sshd
+        ;;
+    stop)
+        stop_sshd
+        ;;
+    install)
+        install_sshserver
+        ;;
+    *)
+        echo "Usage: tssh-server start|stop|install"
+        exit 
+        ;;
+esac
